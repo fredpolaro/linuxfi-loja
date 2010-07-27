@@ -22,10 +22,11 @@ class ApplicationController < ActionController::Base
 
   def load_page
     @page = params[:page] || 1
-    @per_page = params[:per_page] || 1
+    @per_page = params[:per_page] || 10
     if @per_page.to_i > 30
         @per_page = 30
     end
+    @per_page = 2
   end
 
   def paginate( scope, options = {} )

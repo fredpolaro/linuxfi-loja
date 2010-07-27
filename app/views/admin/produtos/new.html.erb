@@ -1,15 +1,17 @@
 <% admin_form_produto  do |f| %>
 
-<% f.error_messages %>
+<%= f.error_messages %>
 
 <p>
   Nome: <br/>
   <%= f.text_field :nome %>
+  <%= error_message_on @produto, :nome  %>
 </p>
 
 <p>
   Preço: <br/>
   <%= f.text_field :preco %>
+  <%= error_message_on @produto, :preco  %>
 </p>
 
 <p>

@@ -24,7 +24,7 @@ class Admin::ProdutosController < Admin::BaseController
     if @produto.update_attributes( params[:produto] )
       ir_para_listagem( "Produto criado/atualizado com sucesso" )
     else
-      sel.new
+      self.new
     end
   end
 

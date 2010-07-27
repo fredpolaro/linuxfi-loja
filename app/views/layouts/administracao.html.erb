@@ -1,9 +1,10 @@
 <html>
   <head>
     <title>
-      <%= @titulo %> | Loja
+      <%= yield :cabecalho %> | Loja
     </title>
 
+    <%= stylesheet_link_tag "erros" %>
     <%= yield :stylesheets %>
 
   </head>
