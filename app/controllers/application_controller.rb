@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
+  # este é o master
+
   helper_method :pedido_atual, :usuario_atual
 
   protected
