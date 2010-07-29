@@ -5,13 +5,15 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+  include AutenticacaoControllerHelper
+
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+   filter_parameter_logging /senha/
 
   # este é o master
   # este ainda é o master
 
-  helper_method :pedido_atual, :usuario_atual
+  helper_method :pedido_atual, :usuario_atual, :logado?, :administrador?
 
   protected
 
@@ -27,7 +29,7 @@ class ApplicationController < ActionController::Base
     @page = params[:page] || 1
     @per_page = params[:per_page] || 10
     if @per_page.to_i > 30
-        @per_page = 30
+      @per_page = 30
     end
     @per_page = 2
   end

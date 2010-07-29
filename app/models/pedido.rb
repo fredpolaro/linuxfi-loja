@@ -1,6 +1,7 @@
 
 class Pedido < ActiveRecord::Base
 
+  belongs_to :usuario, :counter_cache => true # ou :counter_cache => "pedidos_count"
   has_many :itens, :dependent => :destroy
   accepts_nested_attributes_for :itens
   after_save :remover_itens_zerados
