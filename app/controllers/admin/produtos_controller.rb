@@ -22,9 +22,9 @@ class Admin::ProdutosController < Admin::BaseController
 
   def create
     if @produto.update_attributes( params[:produto] )
-      ir_para_listagem( "Produto criado/atualizado com sucesso" )
+      ir_para_listagem( 'Produto criado/atualizado com sucesso' )
     else
-      self.new
+      new
     end
   end
 
@@ -32,10 +32,8 @@ class Admin::ProdutosController < Admin::BaseController
 
   def destroy
     @produto.destroy
-     ir_para_listagem( "Produto removido com sucesso" )
-
+    ir_para_listagem( 'Produto removido com sucesso' )
   end
-
 
   protected
 
@@ -43,15 +41,13 @@ class Admin::ProdutosController < Admin::BaseController
     @produto = params[:id].blank? ? Produto.new : Produto.find( params[:id] )
   end
 
-  def ir_para_listagem(mensagem)
-
-     respond_to do |format|
-        format.html do
-          flash[:aviso] = mensagem
-          redirect_to admin_produtos_path
-        end
+  def ir_para_listagem( mensagem )
+    respond_to do |format|
+      format.html do
+        flash[:aviso] = mensagem
+        redirect_to admin_produtos_path
       end
-
+    end
   end
 
 end

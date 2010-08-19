@@ -1,25 +1,36 @@
-<% admin_form_produto  do |f| %>
-
-<%= f.error_messages %>
-
-<p>
-  Nome: <br/>
-  <%= f.text_field :nome %>
-  <%= error_message_on @produto, :nome  %>
-</p>
-
-<p>
-  Preço: <br/>
-  <%= f.text_field :preco %>
-  <%= error_message_on @produto, :preco  %>
-</p>
-
-<p>
-  Descrição: <br/>
-  <%= f.text_area :descricao %>
-</p>
-
-<p><%= submit_tag "Enviar" %> </p>
-
+<% content_for :cabecalho do %>
+  Novo/Editar Produto
 <% end %>
 
+<% admin_form_for_produto do |f|  %>
+
+  <%= f.error_messages %>
+
+  <p>
+    Nome: <br/>
+    <%= f.text_field :nome %>
+  </p>
+
+  <p>
+    Preço: <br/>
+    <%= f.text_field :preco %>
+  </p>
+
+  <p>
+    Imagem: <br/>
+    <%= f.file_field :imagem %>
+
+    <% if @produto.imagem.file? %>
+      <br/>
+      Imagem atual: <%= image_tag @produto.imagem.url( :thumb ) %>
+    <% end %>
+  </p>
+
+  <p>
+    Descrição: <br/>
+    <%= f.text_area :descricao %>
+  </p>
+
+  <p> <%= submit_tag 'Enviar' %>  </p>
+
+<% end %>

@@ -1,18 +1,17 @@
 <html>
   <head>
     <title>
-      <%= yield :cabecalho %> | Loja
+      <%= @titulo %> | Administração da Loja
     </title>
 
-    <%= stylesheet_link_tag "erros" %>
     <%= yield :stylesheets %>
 
   </head>
   <body>
 
-    <h1> <%= yield :cabecalho %>  | Loja </h1>
+    <h1> <%= yield :cabecalho %>  | Administração </h1>
 
-    <%= render_flash %>
+    <%= render 'compartilhados/flash' %>
 
     <%= yield %>
 

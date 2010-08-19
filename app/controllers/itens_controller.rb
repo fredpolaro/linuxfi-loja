@@ -1,10 +1,6 @@
 
 class ItensController < ApplicationController
-
-  # commit do master
-  #commit em usuarios
-
-
+  
   def create
     @produto = Produto.find( params[:produto_id] )
 
@@ -20,6 +16,14 @@ class ItensController < ApplicationController
     ir_para_carrinho( "Carrinho atualizado som sucesso" )
   end
 
+  def destroy
+    @item = pedido_atual.itens.find(params[:id])
+    @item.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
+
   protected
 
   def ir_para_carrinho( mensagem )
@@ -28,6 +32,7 @@ class ItensController < ApplicationController
         flash[:aviso] = mensagem
         redirect_to itens_path
       end
+      format.js
     end
   end
 

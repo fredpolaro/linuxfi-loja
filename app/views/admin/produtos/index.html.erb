@@ -2,35 +2,20 @@
   Listagem de Produtos
 <% end %>
 
-<%= button_to "Novo", new_admin_produto_path %>
-
 <% unless @produtos.blank? %>
 
+
+  <%= will_paginate @produtos %>
+
   <table>
-    <%= cabecalho_de_tabela "ID", "Nome", "Preço", "Ações"   %>
+    <%= cabecalho_de_tabela 'Nome', 'Preço', 'Ações' %>
     <tbody>
-      <% @produtos.each do |produto| %>
-      <tr>
-        <td> <%= produto.id %> </td>
-        <td> <%= produto.nome %> </td>
-        <td> <%= number_to_currency produto.preco %> </td>
-        <td>
-          <%= link_to "Editar", edit_admin_produto_path( produto ) %>
-          <%= link_to "Remover", admin_produto_path( produto ),   :method => :delete, :confirm => "Você tem certeza ?" %>
-        </td>
-      </tr>
-    <% end %>
+      <%= render @produtos %>
     </tbody>
   </table>
 
-  <br/>
-
   <%= will_paginate @produtos %>
-  <%= mensagem_de_paginacao @produtos %>
 
 <% else %>
-
-  <p>Não há produtos cadastrados no banco. </p>
-
+  <p> Não há produtos cadastrados no sistema. </p>
 <% end %>
-

@@ -1,6 +1,8 @@
 
 class Admin::BaseController < ApplicationController
 
-  layout "administracao"
+  layout 'administracao'
+
+  before_filter :administrador_necessario
 
 end

@@ -3,9 +3,8 @@
     <title>
       <%= @titulo %> | Loja
     </title>
-
     <%= yield :stylesheets %>
-
+    <%= javascript_include_tag 'jquery', 'jquery-ui', 'jquery-form', 'application' %>
   </head>
   <body>
 
@@ -13,14 +12,9 @@
 
     <%= render_flash %>
 
-    <ul>
-      <li> <%= link_to 'Produtos', produtos_path %>  </li>
-      <% unless pedido_atual.blank? %>
-        <li>
-          <%= link_to( "Veja o seu carrinho", itens_path ) %>
-        </li>
-      <% end %>
-    </ul>
+    <%= render 'compartilhados/login_logout' %>
+
+    <%= render 'compartilhados/menu' %>
 
     <%= yield %>
 

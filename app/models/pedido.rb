@@ -1,22 +1,12 @@
 
 class Pedido < ActiveRecord::Base
 
-  belongs_to :usuario, :counter_cache => true # ou :counter_cache => "pedidos_count"
   has_many :itens, :dependent => :destroy
   accepts_nested_attributes_for :itens
   after_save :remover_itens_zerados
 
-  # def itens_attributes=( array )
-  # def endereco_attributes=( array )
-  #   accepts_nested_attributes_for :endereco
-  #   pedido[endereco_attributes][nome]
-  #   pedido[endereco_attributes][cidade]
-  #   pedido[endereco_attributes][estado]
-  #   pedido[endereco_attributes][pais]
-
-
   def adicionar_produto( produto, quantidade )
-    if item = self.itens.detect { |i| i.produto == produto }
+    if item = self.item_por_produto( produto )
       item.update_attributes(:quantidade => quantidade + item.quantidade)
     else
       self.itens.build( :produto_id => produto.id, :quantidade => quantidade )
@@ -24,12 +14,26 @@ class Pedido < ActiveRecord::Base
   end
 
   def preco_total
-    #self.itens.to_a.sum { |item| item.preco_total }
     self.itens.to_a.sum( &:preco_total )
+  end
+
+  def total_de_itens
+    self.itens.to_a.sum(&:quantidade)
   end
 
   def blank?
     self.itens.blank?
+  end
+
+  def unir( outro_pedido )
+    outro_pedido.itens.each do |item|
+      self.adicionar_produto(item.produto, item.quantidade)
+    end
+    self.save
+  end
+
+  def item_por_produto( produto )
+    self.itens.detect { |i| i.produto == produto }
   end
 
   protected
